@@ -1,19 +1,57 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import About from '../views/AboutView.vue'
+import Login from '@/views/login.vue'
+import Admin from '@/views/admin.vue'
+import Student from '@/views/student.vue'
+import Jadval from '@/views/jadval.vue'
+import Rejalar from '@/views/rejalar.vue'
+import Moliya from '@/views/moliya.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    redirect: '/login',
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/login',
+    name: 'login',
+    component: Login
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: Admin,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/student',
+    name: 'student',
+    component: Student,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/moliya',
+    name: 'moliya',
+    component: Moliya,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/jadval',
+    name: 'jadval',
+    component: Jadval,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/rejalar',
+    name: 'rejalar',
+    component: Rejalar,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/groups',
+    name: 'groups',
+    component: About,
+    meta: { requiresAuth: true }
   }
 ]
 
@@ -21,5 +59,14 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+  if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
+    next('/login');
+  } else {
+    next();
+  }
+});
 
 export default router
