@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     login() {
-      if (this.username === 'admin' && this.password === 'admin123') {
+      if (this.username === 'admin' && this.password === 'kod123') {
         localStorage.setItem('isAuthenticated', 'true');
         this.$router.push('/admin');
       } else {
