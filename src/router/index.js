@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import About from '../views/AboutView.vue'
 import Login from '@/views/login.vue'
 import Admin from '@/views/admin.vue'
 import Student from '@/views/student.vue'
 import Jadval from '@/views/jadval.vue'
 import Rejalar from '@/views/rejalar.vue'
 import Moliya from '@/views/moliya.vue'
+import Groups from '@/views/groups.vue'
 
 const routes = [
   {
@@ -36,6 +36,12 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
+    path: '/groups',
+    name: 'groups',
+    component: Groups,
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/jadval',
     name: 'jadval',
     component: Jadval,
@@ -47,12 +53,6 @@ const routes = [
     component: Rejalar,
     meta: { requiresAuth: true }
   },
-  {
-    path: '/groups',
-    name: 'groups',
-    component: About,
-    meta: { requiresAuth: true }
-  }
 ]
 
 const router = createRouter({
